@@ -29,6 +29,7 @@ const Login = () => {
 
 	const handleRegister = async e => {
 		e.preventDefault();
+		toast.warn("Hello")
 		setLoading(true);
 		const formData = new FormData(e.target);
 
