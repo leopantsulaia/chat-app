@@ -2,18 +2,23 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
+import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
-	apiKey: import.meta.env.VITE_API_KEY,
-	authDomain: import.meta.env.VITE_AUTH_DOMAIN,
-	projectId: import.meta.env.VITE_PROJECT_ID,
-	storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
-	messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
-	appId: import.meta.env.VITE_APP_ID,
+  apiKey: "AIzaSyCT14DAshWH_snTa2PmzjHJf12BCSFMzDk",
+  authDomain: "chat-app-58ac9.firebaseapp.com",
+  projectId: "chat-app-58ac9",
+  storageBucket: "chat-app-58ac9.firebasestorage.app",
+  messagingSenderId: "942415100929",
+  appId: "1:942415100929:web:030dbb80dcdb2652b55400",
+  measurementId: "G-0GVD5WGZ1Q"
 };
 
 const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+console.log("Firebase Analytics initialized:", analytics);
 
-export const auth = getAuth();
-export const db = getFirestore();
-export const storage = getStorage();
+
+export const auth = getAuth()
+export const db = getFirestore()
+export const storage = getStorage()
