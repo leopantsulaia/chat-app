@@ -30,8 +30,14 @@ const App = () => {
       {currentUser ? (
         <>
           <List />
+
           {chatId && <Chat />}
           {chatId && <Detail />}
+
+
+          <button style={{ backgroundColor: "red", height: "50px", width: "100px" }} onClick={() => auth.signOut()}>
+           Logout
+          </button>
         </>
       ) : (
         <Login />

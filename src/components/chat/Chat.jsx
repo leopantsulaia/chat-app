@@ -31,9 +31,10 @@ const Chat = () => {
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [chat.messages]);
+  }, [chat?.messages]);
 
   useEffect(() => {
+      if (!chatId) return;
     const unSub = onSnapshot(doc(db, "chats", chatId), (res) => {
       setChat(res.data());
     });
@@ -58,10 +59,9 @@ const Chat = () => {
   };
 
   const handleSend = async () => {
-    if (text === "") return;
+    if (text.trim() === "") return;
 
     let imgUrl = null;
-
     try {
       if (img.file) {
         imgUrl = await upload(img.file);
@@ -102,11 +102,7 @@ const Chat = () => {
     } catch (err) {
       console.log(err);
     } finally{
-    setImg({
-      file: null,
-      url: "",
-    });
-
+    setImg({ file: null, url: ""});
     setText("");
     }
   };
@@ -118,7 +114,7 @@ const Chat = () => {
           <img src={user?.avatar || "./avatar.png"} alt="" />
           <div className="texts">
             <span>{user?.username}</span>
-            <p>Lorem ipsum dolor, sit amet.</p>
+            <p>Active Now</p>
           </div>
         </div>
         <div className="icons">
@@ -128,20 +124,23 @@ const Chat = () => {
         </div>
       </div>
       <div className="center">
-        {chat?.messages?.map((message) => (
+        {chat?.messages?.length > 0 ? (
+          chat?.messages?.map((message) => (
           <div
+           key={message?.createAt}
             className={
               message.senderId === currentUser?.id ? "message own" : "message"
-            }
-            key={message?.createAt}
-          >
+            }>
             <div className="texts">
               {message.img && <img src={message.img} alt="" />}
               <p>{message.text}</p>
               <span>{format(message.createdAt.toDate())}</span>
             </div>
           </div>
-        ))}
+        ))
+        ) : (
+          <p className="info-message">No messages yet.</p>
+        )}
         {img.url && (
           <div className="message own">
             <div className="texts">
@@ -189,8 +188,7 @@ const Chat = () => {
         <button
           className="sendButton"
           onClick={handleSend}
-          disabled={isCurrentUserBlocked || isReceiverBlocked}
-        >
+          disabled={isCurrentUserBlocked || isReceiverBlocked}>
           Send
         </button>
       </div>
