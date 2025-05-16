@@ -18,11 +18,23 @@ body {
 .container {
   width: 80vw;
   height: 90vh;
-  background-color: rgba(17, 25, 40, 0.75);
+  background-color: rgba(113, 0, 154, 0.75);
   backdrop-filter: blur(19px) saturate(180%);
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.125);
   display: flex;
+
+
+  
+}
+@media (max-width: 768px) {
+  .container {
+     width: 50vh;
+    flex-direction: row;
+     margin: 0 auto;
+   display: flex;
+   flex-direction: column; 
+  }
 }
 
 .loading{
